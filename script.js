@@ -15,8 +15,20 @@ function createTask(task) {
     // element.textContent kan brukes for å sette tekst innhold
     taskTitle.textContent = task.title
 
+    // Lag created at HTML
+    const createdAtElement = document.createElement("p")
+    const dateElement = document.createElement("span")
+
+    // Konfigurer
+    createdAtElement.textContent = "Created At: "
+    dateElement.textContent = task.createdAt
+
+    // Kombiner
+    createdAtElement.appendChild(dateElement)
+
     // element.appendChild brukes for å kombiner elementer
     containerElement.appendChild(taskTitle)
+    containerElement.appendChild(createdAtElement)
     liWrapper.appendChild(containerElement)
 
     // Finne ut hvor i HTML (DOMet) vi ønsker å sette inn
@@ -40,17 +52,24 @@ const addTaskButton = document.querySelector("#add-task")
  * nytt Task objekt for å sende videre til createTask funksjonen vår
  */
 function addTask() {
-    // Objekt som inneholder informasjon om et gjøremål
-    const task1 = {
-        title: "Sunbath",
-    }
-
     // Lage Task objektet vårt fra det som står skrevet i
     // input feltet
-    
+    const inputField = document.querySelector("#input-title")
+    const content = inputField.value
+
+    // Objekt som inneholder informasjon om et gjøremål
+    const task = {
+        title: content,
+        createdAt: new Date().toLocaleString()
+    }
+
+    console.log(task)
+
+    // Reset innholdet i tekst feltet
+    inputField.value = ""
     
     // Gi til createTask funksjonen vår
-    createTask(task1)
+    createTask(task)
 }
 
 // 3. Kjør funksjonen hver gang knappene trykkes
